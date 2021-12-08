@@ -34,3 +34,22 @@ variable "vpc_enable_dns_hostnames" {
 variable "vpc_enable_classiclink" {
   default = "false"
 }
+variable "admin_subnet_parent_cidr" {
+  description = "parent CIDR for the administrative subnets"
+  default     = ".0.0/19"
+}
+
+variable "admin_subnet_cidrs" {
+  description = "CIDRs for the adminsitrative subnets"
+  default = {
+    zone0 = ".0.0/21"
+    zone1 = ".8.0/21"
+    zone2 = ".16.0/21"
+    zone3 = ".24.0/21"
+  }
+}
+
+variable "admin_subnet_tags" {
+  description = "Tags to apply to the admin subnet"
+  default     = {}
+}
