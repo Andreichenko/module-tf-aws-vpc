@@ -26,3 +26,11 @@ variable "vpc_instance_tenancy" {
 variable "vpc_enable_dns_support" {
   default = "true"
 }
+
+variable "vpc_enable_dns_hostnames" {
+  default = "true"
+}
+
+variable "vpc_enable_classiclink" {
+  default = "false"
+}
