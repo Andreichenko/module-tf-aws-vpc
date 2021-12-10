@@ -53,3 +53,126 @@ variable "admin_subnet_tags" {
   description = "Tags to apply to the admin subnet"
   default     = {}
 }
+
+variable "public_subnet_parent_cidr" {
+  description = "parent CIDR for the public subnets"
+  default     = ".32.0/19"
+}
+
+variable "public_subnet_cidrs" {
+  description = "CIDRs for the public subnets"
+  default = {
+    zone0 = ".32.0/21"
+    zone1 = ".40.0/21"
+    zone2 = ".48.0/21"
+    zone3 = ".56.0/21"
+  }
+}
+
+variable "public_subnet_tags" {
+  description = "Tags to apply to the public subnets"
+  default     = {}
+}
+
+variable "private_prod_subnet_parent_cidr" {
+  description = "parent CIDR for the private production subnets"
+  default     = ".64.0/19"
+}
+
+variable "private_prod_subnet_cidrs" {
+  description = "CIDRs for the private production subnets"
+  default = {
+    zone0 = ".64.0/21"
+    zone1 = ".72.0/21"
+    zone2 = ".80.0/21"
+    zone3 = ".88.0/21"
+  }
+}
+
+variable "private_prod_subnet_tags" {
+  description = "Tags to apply to the private production subnets"
+  default     = {}
+}
+
+variable "private_working_subnet_parent_cidr" {
+  description = "parent CIDR for the private working subnets"
+  default     = ".96.0/19"
+}
+
+variable "private_working_subnet_cidrs" {
+  description = "CIDRs for the private working subnets"
+  default = {
+    zone0 = ".96.0/21"
+    zone1 = ".104.0/21"
+    zone2 = ".112.0/21"
+    zone3 = ".120.0/21"
+  }
+}
+
+variable "private_working_subnet_tags" {
+  description = "Tags to apply to the private working subnets"
+  default     = {}
+}
+
+variable "multi_az_nat_gateway" {
+  description = "place a NAT gateway in each AZ"
+  default     = 1
+}
+
+variable "single_nat_gateway" {
+  description = "use a single NAT gateway to serve outbound traffic for all AZs"
+  default     = 0
+}
+
+variable "enable_s3_vpc_endpoint" {
+  description = "Create a VPC S3 gateway endpoint and private subnet route entries. This will route S3 traffic over private network rather than over NAT gateways."
+  default     = "false"
+}
+
+variable "s3_vpc_endpoint_policy" {
+  description = "S3 VPC endpoint gateway policy document. Bucket and IAM policies still apply."
+  default     = <<POLICY
+{
+    "Statement": [
+        {   
+            "Sid": "FullAccess",
+            "Action": "*",
+            "Effect": "Allow",
+            "Resource": "*",
+            "Principal": "*"
+        }
+    ],
+    "Version": "2008-10-17"
+}
+POLICY
+
+}
+
+variable "s3_vpc_endpoint_route_table_ids" {
+  description = "By default routes to the s3 endpoint are added for private subnet route tables. Pass additional route table ids that require routes."
+  type = list(string)
+  default = []
+}
+
+variable "internet_gateway_tags" {
+  description = "Tags to apply to the internet gateway"
+  default = {}
+}
+
+variable "public_route_table_tags" {
+  description = "Tags to apply to the public route table"
+  default = {}
+}
+
+variable "private_route_table_tags" {
+  description = "Tags to apply to the private route table"
+  default = {}
+}
+
+variable "global_tags" {
+  description = "AWS tags that will be added to all resources"
+  type = map(string)
+  default = {
+    "Managed By" = "Terraform"
+  }
+}
