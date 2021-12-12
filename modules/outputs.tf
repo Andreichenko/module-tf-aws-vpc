@@ -5,3 +5,7 @@ output "provisioned_cidrs" {
     admin_cidr_subnets   = "${local.admin_cidr_subnets}"
   }
 }
+
+output "aws_subnet_admin_ids" {
+  value = ["${aws_subnet.admin.*.id}"]
+}
