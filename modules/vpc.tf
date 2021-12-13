@@ -11,3 +11,8 @@ resource "aws_vpc" "kube_vpc" {
     ignore_changes = ["tags"]
   }
 }
+
+resource "aws_internet_gateway" "default" {
+  vpc_id = "${aws_vpc.kube_vpc.id}"
+  tags   = "${merge(local.tags, map("Name", "${var.vpc_name}"))}"
+}
