@@ -29,3 +29,9 @@ resource "aws_nat_gateway" "nat_gateway" {
     ignore_changes = ["tags"]
   }
 }
+
+resource "aws_eip" "mod_nat" {
+  count = "${length(local.avail_zones_list)}"
+  tags  = "${local.tags}"
+  vpc   = true
+}
