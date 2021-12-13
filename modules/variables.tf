@@ -21,3 +21,11 @@ variable "admin_subnets_list" {
 variable "vpc_name" {
   description = "The name tag of the VPC you are creating."
 }
+
+output "aws_vpc_id" {
+  value = "${aws_vpc.kube_vpc.id}"
+}
+
+output "aws_vpc_cidr" {
+  value = "${aws_vpc.kube_vpc.cidr_block}"
+}
