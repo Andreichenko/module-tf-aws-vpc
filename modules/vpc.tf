@@ -35,3 +35,11 @@ resource "aws_eip" "mod_nat" {
   tags  = "${local.tags}"
   vpc   = true
 }
+
+
+# Route Tables
+## Public
+resource "aws_route_table" "public" {
+  vpc_id = "${aws_vpc.kube_vpc.id}"
+  tags   = "${merge(local.tags, map("Name", "public"))}"
+}

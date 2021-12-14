@@ -9,3 +9,8 @@ output "provisioned_cidrs" {
 output "aws_subnet_admin_ids" {
   value = ["${aws_subnet.admin.*.id}"]
 }
+
+
+output "aws_route_table_public_ids" {
+  value = ["${aws_route_table.public.id}"]
+}
