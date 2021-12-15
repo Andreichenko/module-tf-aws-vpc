@@ -57,3 +57,11 @@ resource "aws_route_table" "private" {
 
   tags = "${merge(local.tags, map("Name", "private_az${(count.index + 1)}"))}"
 }
+
+resource "aws_route" "private_nat_gateway" {
+  count                  = "${local._count_of_availability_zones}"
+  route_table_id         = "${element(aws_route_table.private.*.id, count.index)}"
+  nat_gateway_id         = "${element(aws_nat_gateway.nat_gateway.*.id, count.index)}"
+  destination_cidr_block = "0.0.0.0/0"
+  depends_on             = ["aws_route_table.private", "aws_nat_gateway.nat_gateway", "aws_vpc.kube_vpc"]
+}
