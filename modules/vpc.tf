@@ -49,3 +49,11 @@ resource "aws_route" "public_internet_gateway" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = "${aws_internet_gateway.default.id}"
 }
+
+## Private
+resource "aws_route_table" "private" {
+  count  = "${local._count_of_availability_zones}"
+  vpc_id = "${aws_vpc.kube_vpc.id}"
+
+  tags = "${merge(local.tags, map("Name", "private_az${(count.index +1)}"))}"
+}
