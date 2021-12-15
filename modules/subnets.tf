@@ -10,7 +10,7 @@ resource "aws_subnet" "admin" {
 
 #route table association for admins
 resource "aws_route_table_association" "admin" {
-  count    = "${local._count_of_availability_zones}"
-  subnet_id   = "${element(aws_subnet.admin.*.id, count.index)}"
+  count          = "${local._count_of_availability_zones}"
+  subnet_id      = "${element(aws_subnet.admin.*.id, count.index)}"
   route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
 }
