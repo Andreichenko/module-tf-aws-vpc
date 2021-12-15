@@ -18,3 +18,7 @@ output "aws_route_table_public_ids" {
 output "aws_route_table_private_ids" {
   value = ["${aws_route_table.private.*.id}"]
 }
+
+output "aws_subnet_public_ids" {
+  value   = ["${aws_subnet.public.*.id}"]
+}
