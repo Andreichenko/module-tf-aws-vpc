@@ -55,5 +55,5 @@ resource "aws_route_table" "private" {
   count  = "${local._count_of_availability_zones}"
   vpc_id = "${aws_vpc.kube_vpc.id}"
 
-  tags = "${merge(local.tags, map("Name", "private_az${(count.index +1)}"))}"
+  tags = "${merge(local.tags, map("Name", "private_az${(count.index + 1)}"))}"
 }
