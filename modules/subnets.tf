@@ -39,4 +39,9 @@ resource "aws_subnet" "private" {
   tags              = "${merge(local.tags, map("Name", "Private Subnet"))}"
 }
 
+resource "aws_route_table_association" "private" {
+  count          = "${local._count_of_availability_zones}"
+  subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
+  route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
+}
 
