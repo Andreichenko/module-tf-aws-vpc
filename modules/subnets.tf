@@ -30,3 +30,13 @@ resource "aws_route_table_association" "public" {
   route_table_id = "${aws_route_table.public.id}"
 }
 
+## Private
+resource "aws_subnet" "private" {
+  count             = "${local._count_of_availability_zones}"
+  vpc_id            = "${aws_vpc.kube_vpc.id}"
+  cidr_block        = "${local.private_cidr_subnets[count.index]}"
+  availability_zone = "${local.avail_zones_list[count.index]}"
+  tags              = "${merge(local.tags, map("Name", "Private Subnet"))}"
+}
+
+
