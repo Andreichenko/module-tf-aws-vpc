@@ -28,3 +28,30 @@ kops_subnets = {
     utility_cidr_2 = "${cidrsubnet(local._kops_reserved, 2, 3)}"
   }
 }
+
+output "entire_network" {
+  value = "${var.base_cidr}"
+}
+
+output "supernets" {
+  value = {
+    OpsNetwork  = "${local._ops_based}"
+    KopsNetwork = "${local._kops_reserved}"
+  }
+}
+
+output "public_cidrs" {
+  value = ["${local.public_cidr_subnets}"]
+}
+
+output "private_cidrs" {
+  value = ["${local.private_cidr_subnets}"]
+}
+
+output "admin_cidrs" {
+  value = ["${local.admin_cidr_subnets}"]
+}
+
+output "kops_cidrs" {
+  value = "${local.kops_subnets}"
+}
