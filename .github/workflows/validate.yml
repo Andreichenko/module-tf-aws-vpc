@@ -1,0 +1,44 @@
+name: 'Terraform Validate'
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: 'Validate AWS VPC Infrastructure'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        directory: ['.', 'modules']
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.7
+
+    - name: Format Check
+      run: terraform fmt -check
+      working-directory: ${{ matrix.directory }}
+      continue-on-error: true
+
+    - name: Terraform Init
+      run: |
+        # In modules directory, we need to create a dummy main referencing variables to init successfully
+        # or run with backend=false
+        terraform init -backend=false
+      working-directory: ${{ matrix.directory }}
+
+    - name: Terraform Validate
+      run: |
+        terraform validate
+      working-directory: ${{ matrix.directory }}

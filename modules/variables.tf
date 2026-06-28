@@ -4,17 +4,17 @@ variable "vpc_cidr" {
 }
 
 variable "public_subnets_list" {
-  type        = "list"
+  type        = list(string)
   description = "A list of the subnets to create for public subnets"
 }
 
 variable "private_subnets_list" {
-  type        = "list"
+  type        = list(string)
   description = "A list of the subnets to create for private subnets"
 }
 
 variable "admin_subnets_list" {
-  type        = "list"
+  type        = list(string)
   description = "A list of the subnets to create for admin subnets"
 }
 
@@ -23,9 +23,9 @@ variable "vpc_name" {
 }
 
 output "aws_vpc_id" {
-  value = "${aws_vpc.kube_vpc.id}"
+  value = aws_vpc.kube_vpc.id
 }
 
 output "aws_vpc_cidr" {
-  value = "${aws_vpc.kube_vpc.cidr_block}"
+  value = aws_vpc.kube_vpc.cidr_block
 }

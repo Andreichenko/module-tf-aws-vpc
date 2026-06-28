@@ -1,5 +1,5 @@
 resource "aws_vpc_endpoint" "s3_endpoint" {
-  count        = var.enable_s3_vpc_endpoint ? 1 : 0
+  count        = (var.enable_s3_vpc_endpoint == "true" || var.enable_s3_vpc_endpoint == true) ? 1 : 0
   vpc_id       = aws_vpc.default.id
   service_name = "com.amazonaws.${var.aws_region}.s3"
   route_table_ids = concat(
