@@ -1,7 +1,6 @@
 resource "aws_eip" "mod_nat" {
-  count  = var.multi_az_nat_gateway * var.az_count + var.single_nat_gateway * 1
-  tags   = var.global_tags
-  domain = "vpc"
+  count = var.multi_az_nat_gateway * var.az_count + var.single_nat_gateway * 1
+  tags  = var.global_tags
 }
 
 output "aws_eip_nat_ips" {

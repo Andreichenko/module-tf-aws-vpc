@@ -33,7 +33,6 @@ resource "aws_nat_gateway" "nat_gateway" {
 resource "aws_eip" "mod_nat" {
   count  = length(local.avail_zones_list)
   tags   = local.tags
-  domain = "vpc"
 }
 
 # Route Tables
